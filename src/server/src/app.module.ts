@@ -1,0 +1,29 @@
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { config } from './config';
+import { ConfigModule } from '@nestjs/config';
+import { DatabaseConfig } from './database.config';
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [config],
+    }),
+    // GraphQLModule.forRoot({
+    //   autoSchemaFile: join(process.cwd(), 'src/graphql-schema.gql'),
+    //   context: ({ req }) => ({ headers: req.headers }),
+    // }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useClass: DatabaseConfig,
+    }),
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
