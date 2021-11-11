@@ -2,11 +2,33 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Event {
+  id: String!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  userHasEvent: [UserHasEvent!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type UserHasEvent {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  event: Event!
+  user: User!
+}
+
 type User {
   id: String!
   email: String!
   password: String!
   profile: Profile
+  userHasEvent: [UserHasEvent!]!
 }
 
 type Profile {
@@ -26,14 +48,23 @@ type Query {
   getUserById(id: String!): User!
   getAllProfiles: [Profile!]!
   getProfileByIdprofile(id: String!): Profile!
+  userHasEvent: [UserHasEvent!]!
+  userHasEventFindEvents(id: String!): UserHasEvent!
+  userHasEventFindEventsByuserIdEventId(eventId: String!, userId: String!): UserHasEvent!
+  getAllEvents: [Event!]!
+  event(id: Int!): Event!
 }
 
 type Mutation {
-  login(password: String!, email: String!): SignInResponse!
   createUser(createProfileInput: CreateProfileInput!, createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: String!): String!
   removeProfile(id: String!): Profile!
+  removeUserHasEvent(id: Int!): UserHasEvent!
+  login(password: String!, email: String!): SignInResponse!
+  createEvent(createEventInput: CreateEventInput!): Event!
+  updateEvent(updateEventInput: UpdateEventInput!): Event!
+  removeEvent(id: Int!): Event!
 }
 
 input CreateProfileInput {
@@ -59,4 +90,20 @@ input UpdateProfileInput {
   firstName: String
   lastName: String
   image: String
+}
+
+input CreateEventInput {
+  name: String!
+  createdAt: DateTime
+  createUserHasEventInput: [CreateUserHasEventInput!]!
+}
+
+input CreateUserHasEventInput {
+  userId: String!
+}
+
+input UpdateEventInput {
+  id: String!
+  name: String!
+  updatedAt: DateTime
 }

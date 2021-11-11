@@ -8,6 +8,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { ProfileModule } from './profile/profile.module';
+import { EventModule } from './event/event.module';
+import { UserHasEventModule } from './user-has-event/user-has-event.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -23,7 +27,11 @@ import { AuthModule } from './auth/auth.module';
       imports: [ConfigModule],
       useClass: DatabaseConfig,
     }),
+    UserModule,
     AuthModule,
+    ProfileModule,
+    EventModule,
+    UserHasEventModule,
   ],
   controllers: [AppController],
   providers: [AppService],
