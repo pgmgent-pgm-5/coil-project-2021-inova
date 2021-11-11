@@ -7,6 +7,7 @@ import { DatabaseConfig } from './database.config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,14 +15,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       isGlobal: true,
       load: [config],
     }),
-    // GraphQLModule.forRoot({
-    //   autoSchemaFile: join(process.cwd(), 'src/graphql-schema.gql'),
-    //   context: ({ req }) => ({ headers: req.headers }),
-    // }),
+    GraphQLModule.forRoot({
+      autoSchemaFile: join(process.cwd(), 'src/graphql-schema.gql'),
+      context: ({ req }) => ({ headers: req.headers }),
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useClass: DatabaseConfig,
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
