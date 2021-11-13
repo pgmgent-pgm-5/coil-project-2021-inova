@@ -1,13 +1,10 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { EventCalculation } from 'src/event-calculation/entities/event-calculation.entity';
 import { UserHasEvent } from 'src/user-has-event/entities/user-has-event.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';

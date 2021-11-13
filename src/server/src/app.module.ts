@@ -12,6 +12,7 @@ import { ProfileModule } from './profile/profile.module';
 import { EventModule } from './event/event.module';
 import { UserHasEventModule } from './user-has-event/user-has-event.module';
 import { UserModule } from './user/user.module';
+import { ExpenceModule } from './expence/expence.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { UserModule } from './user/user.module';
     AuthModule,
     ProfileModule,
     EventModule,
+    ExpenceModule,
     UserHasEventModule,
   ],
   controllers: [AppController],

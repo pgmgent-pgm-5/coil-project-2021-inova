@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { EventInfo } from 'src/event/entities/eventInfo.entity';
 import { UserHasEvent } from 'src/user-has-event/entities/user-has-event.entity';
 import { UserHasEventService } from 'src/user-has-event/user-has-event.service';
-import { User } from 'src/user/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateExpenceInput } from './dto/create-expence.input';
 import { UpdateExpenceInput } from './dto/update-expence.input';

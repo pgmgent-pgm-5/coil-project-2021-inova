@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Profile {
+  id: String!
+  firstName: String!
+  lastName: String!
+  image: String
+}
+
 type Event {
   id: String!
   name: String!
@@ -15,12 +22,24 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type UserHasEvent {
+type Expence {
   id: String!
+  sum: Int!
+  name: String!
+  calculation: String!
   createdAt: DateTime!
+  updatedAt: DateTime!
+  userEvent: UserHasEvent!
+}
+
+type UserHasEvent {
+  id: Float!
+  createdAt: DateTime!
+  displayOrder: Float!
   updatedAt: DateTime!
   event: Event!
   user: User!
+  expence: Expence!
 }
 
 type User {
@@ -31,16 +50,14 @@ type User {
   userHasEvent: [UserHasEvent!]!
 }
 
-type Profile {
-  id: String!
-  firstName: String!
-  lastName: String!
-  image: String
-}
-
 type SignInResponse {
   id: String!
   access_token: String!
+}
+
+type OweInfo {
+  userName: String!
+  sum: Float!
 }
 
 type Query {
@@ -53,6 +70,8 @@ type Query {
   userHasEventFindEventsByuserIdEventId(eventId: String!, userId: String!): UserHasEvent!
   getAllEvents: [Event!]!
   event(id: Int!): Event!
+  getAllExpences(eventId: String!): [Expence!]!
+  expence(id: String!): Expence!
 }
 
 type Mutation {
@@ -65,6 +84,9 @@ type Mutation {
   createEvent(createEventInput: CreateEventInput!): Event!
   updateEvent(updateEventInput: UpdateEventInput!): Event!
   removeEvent(id: Int!): Event!
+  createExpence(createExpenceInput: CreateExpenceInput!): Expence!
+  updateExpence(updateExpenceInput: UpdateExpenceInput!): Expence!
+  removeExpence(id: String!): Expence!
 }
 
 input CreateProfileInput {
@@ -104,6 +126,25 @@ input CreateUserHasEventInput {
 
 input UpdateEventInput {
   id: String!
+  name: String!
+  updatedAt: DateTime
+}
+
+input CreateExpenceInput {
+  sum: Int!
+  name: String!
+  createdAt: DateTime
+  createUserHasEventIdInput: CreateUserHasEventIdInput!
+}
+
+input CreateUserHasEventIdInput {
+  userId: String!
+  eventId: String!
+}
+
+input UpdateExpenceInput {
+  id: String!
+  sum: Int!
   name: String!
   updatedAt: DateTime
 }
