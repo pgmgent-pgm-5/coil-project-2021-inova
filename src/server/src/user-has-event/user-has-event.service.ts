@@ -14,16 +14,21 @@ export class UserHasEventService {
   ) {}
 
   create(createUserHasEventInput: CreateUserHasEventInput[]) {
-    const users = createUserHasEventInput.map((i) => ({
+    const users = createUserHasEventInput.map((i, index) => ({
       user: {
         id: i.userId,
       },
+      displayOrder: index + 1,
     }));
     return this.userHasEventRepository.create(users);
   }
 
   createById(createUserHasEventIdInput: CreateUserHasEventIdInput) {
-    return this.userHasEventRepository.create(createUserHasEventIdInput);
+    const userEvent = this.findByEventIdUserId(
+      createUserHasEventIdInput.userId,
+      createUserHasEventIdInput.eventId,
+    );
+    return userEvent;
   }
 
   findAll() {
@@ -34,7 +39,7 @@ export class UserHasEventService {
     return this.userHasEventRepository.findOne({ where: { user: userId } });
   }
 
-  findByEventidUserId(userId: string, eventId: string) {
+  findByEventIdUserId(userId: string, eventId: string) {
     return this.userHasEventRepository.findOne({
       where: { user: userId, event: eventId },
     });

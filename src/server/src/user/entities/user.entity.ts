@@ -29,6 +29,7 @@ export class User {
 
   @OneToOne(() => Profile, {
     cascade: ['remove', 'update'],
+    eager: true,
   })
   @JoinColumn()
   @Field(() => Profile, { nullable: true })

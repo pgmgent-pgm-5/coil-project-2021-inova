@@ -1,6 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { User } from 'src/user/entities/user.entity';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 @Entity()
@@ -24,8 +23,4 @@ export class Profile {
   // @OneToOne(() => User, (user) => user.profile)
   // @Field(() => User)
   // user: User;
-
-  // @Column()
-  // @Field()
-  // userId: string;
 }

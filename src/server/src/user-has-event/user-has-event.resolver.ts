@@ -33,13 +33,8 @@ export class UserHasEventResolver {
     @Args('userId') userId: string,
     @Args('eventId') eventId: string,
   ) {
-    return this.userHasEventService.findByEventidUserId(userId, eventId);
+    return this.userHasEventService.findByEventIdUserId(userId, eventId);
   }
-
-  // @Mutation(() => UserHasEvent)
-  // updateUserHasEvent(@Args('updateUserHasEventInput') updateUserHasEventInput: UpdateUserHasEventInput) {
-  //   return this.userHasEventService.update(updateUserHasEventInput.id, updateUserHasEventInput);
-  // }
 
   @Mutation(() => UserHasEvent)
   removeUserHasEvent(@Args('id', { type: () => Int }) id: number) {
