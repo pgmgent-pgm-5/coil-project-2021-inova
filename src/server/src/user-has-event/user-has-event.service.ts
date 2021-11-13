@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Event } from 'src/event/entities/event.entity';
 import { Repository } from 'typeorm';
 import { CreateUserHasEventIdInput } from './dto/create-user-has-event-id.input';
 import { CreateUserHasEventInput } from './dto/create-user-has-event.input';
