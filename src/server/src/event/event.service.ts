@@ -22,23 +22,16 @@ export class EventService {
     return this.eventRepository.save(ev);
   }
 
-  // async create(
-  //   createUserInput: CreateUserInput,
-  //   createProfileInput: CreateProfileInput,
-  // ): Promise<User> {
-  //   const user = this.userRepository.create(createUserInput);
-  //   user.profile = await this.profileService.create(createProfileInput);
-  //   return this.userRepository.save(user);
-  // }
+  findOne(id: string): Promise<Event> {
+    return this.eventRepository.findOne({
+      relations: ['userHasEvent'],
+      where: { id: id },
+    });
+  }
 
   async findAll(): Promise<Event[]> {
     return this.eventRepository.find();
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} event`;
-  }
-
   async update(id: string, updateEventInput: UpdateEventInput) {
     const event: Event = this.eventRepository.create(updateEventInput);
     event.id = id;

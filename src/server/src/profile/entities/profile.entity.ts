@@ -19,8 +19,4 @@ export class Profile {
   @Column({ nullable: true })
   @Field({ nullable: true })
   image: string;
-
-  // @OneToOne(() => User, (user) => user.profile)
-  // @Field(() => User)
-  // user: User;
 }

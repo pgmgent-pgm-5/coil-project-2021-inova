@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EventInfo } from 'src/event/entities/eventInfo.entity';
+import { EventService } from 'src/event/event.service';
 import { UserHasEvent } from 'src/user-has-event/entities/user-has-event.entity';
+import { Event } from 'src/event/entities/event.entity';
 import { UserHasEventService } from 'src/user-has-event/user-has-event.service';
 import { Repository } from 'typeorm';
 import { CreateExpenceInput } from './dto/create-expence.input';
-import { UpdateExpenceInput } from './dto/update-expence.input';
 import { Expence } from './entities/expence.entity';
 
 @Injectable()
@@ -14,6 +15,7 @@ export class ExpenceService {
     @InjectRepository(Expence)
     private expenceRepository: Repository<Expence>,
     private userHasEventService: UserHasEventService,
+    private eventService: EventService,
   ) {}
 
   async create(createExpenceInput: CreateExpenceInput) {
@@ -21,19 +23,31 @@ export class ExpenceService {
     expence.userEvent = await this.userHasEventService.createById(
       createExpenceInput.createUserHasEventIdInput,
     );
-    const user: UserHasEvent = null; // TODO get user info
-    expence.calculation = this.createCalculation(
+
+    const user: UserHasEvent =
+      await this.userHasEventService.findByEventIdUserId(
+        expence.userEvent.user.id,
+        expence.userEvent.event.id,
+      );
+    const event: Event = await this.eventService.findOne(user.event.id);
+    expence.calculation = await this.createCalculation(
       user.displayOrder,
       expence.sum,
+      event,
+      event.userHasEvent.length,
     );
+
     return this.expenceRepository.save(expence);
   }
 
-  createCalculation(userDisplayOrder: number, sum: number): string[] {
+  async createCalculation(
+    userDisplayOrder: number,
+    sum: number,
+    event: Event,
+    membersAmount: number,
+  ): Promise<string[]> {
     let previousCalculation: string[] = [];
-    const membersAmount = 3; // TODO get event members
-    const eventId = 'test';
-    const latestExpence: Expence = this.getLatestExpence(eventId); // TODO get previous expence
+    const latestExpence: Expence = await this.getLatestExpence(event);
 
     if (!latestExpence) {
       previousCalculation = this.setUpInitialCalculation(membersAmount);
@@ -105,18 +119,36 @@ export class ExpenceService {
     return initialCalculation;
   }
 
-  getLatestExpence(eventId: string): Expence {
-    return null;
+  async getLatestExpence(event: Event): Promise<Expence> {
+    if (!event.userHasEvent || !event.userHasEvent.length) {
+      return null;
+    }
+    const expenses = event.userHasEvent
+      .flatMap((u) => u.expence)
+      .sort((a, b) => {
+        return a.createdAt < b.createdAt ? 1 : 0;
+      });
+
+    if (!expenses || !expenses.length) {
+      return null;
+    }
+    return expenses[0];
   }
 
-  getLatestInfo(eventId: string, displayOrder: number): EventInfo {
+  async getLatestInfo(event: Event, displayOrder: number): Promise<EventInfo> {
     const result = new EventInfo();
     result.oweMe = [];
     result.oweThem = [];
 
     const userIndex = displayOrder - 1;
-    const latestExpence = this.getLatestExpence(eventId);
-    const usersInfo: [{ name: string; displayOrder: number }] = null; // TODO get users name and users displayOrder
+    const latestExpence = await this.getLatestExpence(event);
+    if (!latestExpence) {
+      return result;
+    }
+    const usersInfo = event.userHasEvent.map((u) => ({
+      name: u.user.profile.lastName,
+      displayOrder: u.displayOrder,
+    }));
 
     const matrix = this.deserializeCalculation(latestExpence.calculation);
 
@@ -127,27 +159,23 @@ export class ExpenceService {
             result.totalContribute = matrix[i][k];
           } else {
             const user = usersInfo.find((u) => u.displayOrder == k + 1);
-            result.oweMe.push({ sum: matrix[i][k], userName: user.name });
+            matrix[i][k] &&
+              result.oweMe.push({ sum: matrix[i][k], userName: user.name });
           }
         } else {
           if (k == userIndex) {
             const user = usersInfo.find((u) => u.displayOrder == i + 1);
-            result.oweThem.push({ sum: matrix[i][k], userName: user.name });
+            matrix[i][k] &&
+              result.oweThem.push({ sum: matrix[i][k], userName: user.name });
           }
         }
       }
     }
+    result.id = event.id;
+    result.name = event.name;
 
     return result;
   }
-
-  // create(createExpenceInput: CreateExpenceInput) {
-  //   const expence = this.expenceRepository.create(createExpenceInput);
-  //   expence.event = this.userHasEventService.createById(
-  //     createExpenceInput.createUserHasEventIdInput,
-  //   );
-  //   return this.expenceRepository.save(expence);
-  // }
 
   findAll(eventId: string) {
     return this.expenceRepository.find({
@@ -156,12 +184,11 @@ export class ExpenceService {
     });
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} expence`;
-  }
-
-  update(id: string, updateExpenceInput: UpdateExpenceInput) {
-    return `This action updates a #${id} expence`;
+  findOne(id: string): Promise<Expence> {
+    return this.expenceRepository.findOne({
+      relations: ['userHasEvent'],
+      where: { id: id },
+    });
   }
 
   remove(id: string) {

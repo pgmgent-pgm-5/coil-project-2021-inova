@@ -1,13 +1,15 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ExpenceService } from './expence.service';
 import { Expence } from './entities/expence.entity';
 import { CreateExpenceInput } from './dto/create-expence.input';
-import { UpdateExpenceInput } from './dto/update-expence.input';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver(() => Expence)
 export class ExpenceResolver {
   constructor(private readonly expenceService: ExpenceService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Mutation(() => Expence)
   createExpence(
     @Args('createExpenceInput') createExpenceInput: CreateExpenceInput,
@@ -15,26 +17,19 @@ export class ExpenceResolver {
     return this.expenceService.create(createExpenceInput);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Query(() => [Expence], { name: 'getAllExpences' })
   findAll(@Args('eventId') eventId: string) {
     return this.expenceService.findAll(eventId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Query(() => Expence, { name: 'expence' })
   findOne(@Args('id') id: string) {
     return this.expenceService.findOne(id);
   }
 
-  @Mutation(() => Expence)
-  updateExpence(
-    @Args('updateExpenceInput') updateExpenceInput: UpdateExpenceInput,
-  ) {
-    return this.expenceService.update(
-      updateExpenceInput.id,
-      updateExpenceInput,
-    );
-  }
-
+  @UseGuards(JwtAuthGuard)
   @Mutation(() => Expence)
   removeExpence(@Args('id') id: string) {
     return this.expenceService.remove(id);

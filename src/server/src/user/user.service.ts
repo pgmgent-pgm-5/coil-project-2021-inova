@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateProfileInput } from 'src/profile/dto/create-profile.input';
 import { ProfileService } from 'src/profile/profile.service';
@@ -8,7 +7,6 @@ import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
-import { UserHasEventService } from 'src/user-has-event/user-has-event.service';
 
 @Injectable()
 export class UserService {
@@ -16,8 +14,6 @@ export class UserService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
     private profileService: ProfileService,
-    private userHasEventService: UserHasEventService,
-    private configService: ConfigService,
   ) {}
 
   async create(

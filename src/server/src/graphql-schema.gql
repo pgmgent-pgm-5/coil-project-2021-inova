@@ -39,7 +39,7 @@ type UserHasEvent {
   updatedAt: DateTime!
   event: Event!
   user: User!
-  expence: Expence!
+  expence: [Expence!]!
 }
 
 type User {
@@ -55,6 +55,15 @@ type SignInResponse {
   access_token: String!
 }
 
+type EventInfo {
+  id: String!
+  name: String!
+  createdAt: DateTime!
+  totalContribute: Float!
+  oweMe: [OweInfo!]!
+  oweThem: [OweInfo!]!
+}
+
 type OweInfo {
   userName: String!
   sum: Float!
@@ -67,9 +76,11 @@ type Query {
   getProfileByIdprofile(id: String!): Profile!
   userHasEvent: [UserHasEvent!]!
   userHasEventFindEvents(id: String!): UserHasEvent!
+  userHasEventFindByEventId(id: String!): UserHasEvent!
   userHasEventFindEventsByuserIdEventId(eventId: String!, userId: String!): UserHasEvent!
   getAllEvents: [Event!]!
-  event(id: Int!): Event!
+  getEvent(id: String!): Event!
+  getEventInfo(userId: String!, id: String!): EventInfo!
   getAllExpences(eventId: String!): [Expence!]!
   expence(id: String!): Expence!
 }
@@ -85,7 +96,6 @@ type Mutation {
   updateEvent(updateEventInput: UpdateEventInput!): Event!
   removeEvent(id: Int!): Event!
   createExpence(createExpenceInput: CreateExpenceInput!): Expence!
-  updateExpence(updateExpenceInput: UpdateExpenceInput!): Expence!
   removeExpence(id: String!): Expence!
 }
 
@@ -140,11 +150,4 @@ input CreateExpenceInput {
 input CreateUserHasEventIdInput {
   userId: String!
   eventId: String!
-}
-
-input UpdateExpenceInput {
-  id: String!
-  sum: Int!
-  name: String!
-  updatedAt: DateTime
 }

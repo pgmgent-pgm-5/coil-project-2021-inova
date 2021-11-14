@@ -4,12 +4,13 @@ import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { CreateProfileInput } from 'src/profile/dto/create-profile.input';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver(() => User)
 export class UserResolver {
   constructor(private readonly usersService: UserService) {}
 
-  // @UseGuards(JwtAuthGuard)
   @Mutation(() => User, { name: 'createUser' })
   createUser(
     @Args('createUserInput') createUserInput: CreateUserInput,
@@ -28,11 +29,13 @@ export class UserResolver {
     return this.usersService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Mutation(() => User)
   updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
     return this.usersService.update(updateUserInput.id, updateUserInput);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Mutation(() => String)
   removeUser(@Args('id') id: string) {
     this.usersService.remove(id);

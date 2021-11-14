@@ -44,9 +44,12 @@ export class UserHasEventService {
     });
   }
 
-  // update(id: number, updateUserHasEventInput: UpdateUserHasEventInput) {
-  //   return `This action updates a #${id} userHasEvent`;
-  // }
+  findUserByEventId(eventId: string) {
+    return this.userHasEventRepository.findOne({
+      where: { event: eventId },
+      relations: ['user'],
+    });
+  }
 
   remove(id: number) {
     return `This action removes a #${id} userHasEvent`;

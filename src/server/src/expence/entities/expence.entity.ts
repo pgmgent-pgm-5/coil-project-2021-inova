@@ -43,11 +43,4 @@ export class Expence {
   @ManyToOne(() => UserHasEvent)
   @Field(() => UserHasEvent)
   userEvent: UserHasEvent;
-
-  // @OneToMany(() => EventCalculation, (calculation) => calculation.expence, {
-  //   onUpdate: 'CASCADE',
-  // })
-  // @JoinColumn()
-  // @Field(() => [EventCalculation])
-  // calculation: EventCalculation[];
 }

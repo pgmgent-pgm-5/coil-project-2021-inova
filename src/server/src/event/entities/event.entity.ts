@@ -1,6 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { UserHasEvent } from 'src/user-has-event/entities/user-has-event.entity';
-import { User } from 'src/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -35,7 +34,7 @@ export class Event {
   updatedAt: Date;
 
   @OneToMany(() => UserHasEvent, (userHasEvent) => userHasEvent.event, {
-    cascade: ['insert', 'update'],
+    cascade: ['insert', 'update', 'remove'],
   })
   @JoinTable()
   @Field(() => [UserHasEvent])

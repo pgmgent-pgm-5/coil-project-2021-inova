@@ -44,6 +44,6 @@ export class UserHasEvent {
   user: User;
 
   @OneToMany(() => Expence, (expence) => expence.userEvent, { eager: true })
-  @Field(() => Expence)
-  expence: Expence;
+  @Field(() => [Expence])
+  expence: Expence[];
 }
