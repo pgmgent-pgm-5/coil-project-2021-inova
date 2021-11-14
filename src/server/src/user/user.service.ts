@@ -44,6 +44,8 @@ export class UserService {
 
   async update(id: string, updateUserInput: UpdateUserInput) {
     const user: User = this.userRepository.create(updateUserInput);
+    const salt = await bcrypt.genSalt();
+    user.password = await bcrypt.hash(updateUserInput.password, salt);
     if (updateUserInput.profile) {
       user.profile = await this.profileService.create(updateUserInput.profile);
     }
