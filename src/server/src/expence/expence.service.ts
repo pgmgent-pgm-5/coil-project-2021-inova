@@ -146,7 +146,8 @@ export class ExpenceService {
       return result;
     }
     const usersInfo = event.userHasEvent.map((u) => ({
-      name: u.user.profile.lastName,
+      firstName: u.user.profile.firstName,
+      lastName: u.user.profile.lastName,
       displayOrder: u.displayOrder,
     }));
 
@@ -160,13 +161,21 @@ export class ExpenceService {
           } else {
             const user = usersInfo.find((u) => u.displayOrder == k + 1);
             matrix[i][k] &&
-              result.oweMe.push({ sum: matrix[i][k], userName: user.name });
+              result.oweMe.push({
+                sum: matrix[i][k],
+                firstName: user.firstName,
+                lastName: user.lastName,
+              });
           }
         } else {
           if (k == userIndex) {
             const user = usersInfo.find((u) => u.displayOrder == i + 1);
             matrix[i][k] &&
-              result.oweThem.push({ sum: matrix[i][k], userName: user.name });
+              result.oweThem.push({
+                sum: matrix[i][k],
+                firstName: user.firstName,
+                lastName: user.lastName,
+              });
           }
         }
       }

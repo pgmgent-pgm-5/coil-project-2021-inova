@@ -24,7 +24,10 @@ export class EventInfo {
 @ObjectType()
 class OweInfo {
   @Field()
-  userName: string;
+  firstName: string;
+
+  @Field()
+  lastName: string;
 
   @Field()
   sum: number;
