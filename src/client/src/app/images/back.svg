@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <g id="back" transform="translate(-53 -700)">
+    <path id="Arrow_Back" d="M31,15.092H3.267l8.3-8.369a1.017,1.017,0,0,0,0-1.427.987.987,0,0,0-1.409,0L.288,15.286a1.028,1.028,0,0,0,0,1.427L10.155,26.7a.987.987,0,0,0,1.409,0,1.017,1.017,0,0,0,0-1.427l-8.3-8.166H31a1.009,1.009,0,0,0,0-2.018Z" transform="translate(61 708)" fill="#725ac1" fill-rule="evenodd"/>
+    <g id="Ellipse_6" data-name="Ellipse 6" transform="translate(53 700)" fill="none" stroke="#725ac1" stroke-width="2">
+      <circle cx="24" cy="24" r="24" stroke="none"/>
+      <circle cx="24" cy="24" r="23" fill="none"/>
+    </g>
+  </g>
+</svg>
