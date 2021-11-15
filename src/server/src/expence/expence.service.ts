@@ -126,7 +126,7 @@ export class ExpenceService {
     const expenses = event.userHasEvent
       .flatMap((u) => u.expence)
       .sort((a, b) => {
-        return a.createdAt < b.createdAt ? 1 : 0;
+        return a.createdAt < b.createdAt ? 1 : -1;
       });
 
     if (!expenses || !expenses.length) {
@@ -146,8 +146,8 @@ export class ExpenceService {
       return result;
     }
     const usersInfo = event.userHasEvent.map((u) => ({
-      firstName: u.user.profile.firstName,
       lastName: u.user.profile.lastName,
+      firstName: u.user.profile.firstName,
       displayOrder: u.displayOrder,
     }));
 
