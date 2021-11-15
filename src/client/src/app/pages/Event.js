@@ -66,30 +66,43 @@ console.log(data ? data : "empty");
       < StyledInfo eventId={id}/>
       
       <StyledSwitchers setSelected={setSelected}  />
-      {selected === 'I owe' && data ? <StyledList>
+      {/* {selected === 'I owe' && data ? <StyledList>
         {
           data.getEventInfo.oweThem.map((element , index) => (
             <StyledDues key={index} fname={element.firstName} fullname={`${element.firstName} ${element.lastName}`} text="" color="#FF4F4B" amount={`$ ${element.sum},00`}/>
           ))
         }
         
-      </StyledList> : ''}
+      </StyledList> : ""} */}
 
-      {selected === 'Owed to me' && data ? <StyledList>
+      {/* {selected === 'Owed to me' && data ? <StyledList>
         {
           data.getEventInfo.oweMe.map((element , index) => (
             <StyledDues key={index} fname={element.firstName} fullname={`${element.firstName} ${element.lastName}`} text="" color="#55AB55" amount={`$ ${element.sum},00`}/>
-          ))
-        }
-        
-      </StyledList> : ''}
+          ))}
+      </StyledList> : ""} */}
+      <StyledList>
+        {selected === 'Owed to me' && data ? 
+          (data.getEventInfo.oweMe.map((element , index) => (
+            <StyledDues key={index} fname={element.firstName} fullname={`${element.firstName} ${element.lastName}`} text="" color="#55AB55" amount={`$ ${element.sum},00`}/>
+          ))):""}
+          {selected === 'All expenses' && allExp ? 
+          (allExp.map((element,index) => (
+            <StyledDues key={index} fname={element.userEvent.user.profile.firstName} text={element.name} fullname={`${element.userEvent.user.profile.firstName} ${element.userEvent.user.profile.lastName}`} color="#424242" amount={`$ ${element.sum},00`}/>
+          ))):""}
+          {selected === 'I owe' && data ?           
+          (data.getEventInfo.oweThem.map((element , index) => (
+            <StyledDues key={index} fname={element.firstName} fullname={`${element.firstName} ${element.lastName}`} text="" color="#FF4F4B" amount={`$ ${element.sum},00`}/>
+          ))):""}
 
-      {selected === 'All expenses' && allExp ? <StyledList>
+      </StyledList> 
+
+      {/* {selected === 'All expenses' && allExp ? <StyledList>
         {
           allExp.map((element,index) => (
             <StyledDues key={index} fname={element.userEvent.user.profile.firstName} text={element.name} fullname={`${element.userEvent.user.profile.firstName} ${element.userEvent.user.profile.lastName}`} color="#424242" amount={`$ ${element.sum},00`}/>
         ))}
-      </StyledList> : "" }
+      </StyledList> : "" } */}
 
       <NavLink to = {`/event/expense/${id}`}>
       < StyledButton backgroundcolor="#725AC1" width="327px" text="Add Expense"/>

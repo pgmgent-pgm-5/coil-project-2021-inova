@@ -38,7 +38,6 @@ const AddExpense = ({className}) => {
         console.log(error);
       }else{
         history.goBack()
-        
       }
     },
   });
