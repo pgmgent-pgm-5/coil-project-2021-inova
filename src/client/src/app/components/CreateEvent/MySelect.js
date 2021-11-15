@@ -8,7 +8,6 @@ import {GET_PROFILE_QUERY} from '../../GraphQl/Queries'
 const MySelect = ({  name, onChange }) => {
   const {data} = useQuery(GET_ALL_USERS);
   const result = useQuery(GET_PROFILE_QUERY)
-  console.log(result);
   let members = []
   let preselectedUsers = [];
   data && data.getAllUsers.forEach(item => {

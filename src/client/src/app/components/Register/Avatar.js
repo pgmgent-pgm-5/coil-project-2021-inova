@@ -20,4 +20,3 @@ const Avatar = ({className, onChange, onBlur, src}) => {
 }
 
 export default Avatar
-// (e)=>{formik.setFieldValue("regAvatar", e.target.files[0])}

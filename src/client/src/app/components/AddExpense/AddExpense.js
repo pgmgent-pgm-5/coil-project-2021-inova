@@ -12,8 +12,6 @@ const AddExpense = ({className}) => {
   
   const { id } = useParams();
   const userId = localStorage.getItem('userId');
-  console.log(userId);
-  console.log(id);
   const [createExpence, {error}] = useMutation(CREATE_EXPENSE_MUTATION);
   const history = useHistory();
   const formik = useFormik({

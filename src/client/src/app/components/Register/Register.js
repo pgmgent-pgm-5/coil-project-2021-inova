@@ -8,8 +8,6 @@ import * as Routes from '../../routes';
 import StyledInput from '../Input/StyledInput.style';
 import StyledButton from '../Button/StyledButton.style';
 import help from '../../images/help.svg';
-// import av from "../../images/av.png"
-// import StyledAvatar from './StyledAvatar.style';
 import {CREATE_USER_MUTATION} from "../../GraphQl/Mutations"
 import {useMutation} from "@apollo/client"
 
@@ -46,11 +44,6 @@ const Register = ({className}) => {
       .required("Password is required"),
      
       repeatRegPass: YUP.string().oneOf([YUP.ref('regPass'), null], 'Passwords must match'),
-     
-    //   regAvatar: YUP.mixed()
-    //   .required("You need to provide an avatar")
-    //   .test("fileSize","This picture is to large", (value)=>{return value && value.size < 2000001;})
-    //   .test("type","Avatar must be jpeg, jpg or png", (value)=>{return value ? value.type === "image/jpeg" || value.type === "image/jpg" || value.type === "image/png" : null})
      }),
     onSubmit: (values) => {
       createUser({
@@ -69,9 +62,6 @@ const Register = ({className}) => {
       }
     },
   });
-  
-  //const [pic, setPic] = useState(null);
- 
   return (
     <div className={className}>
       <div className="wrap">
@@ -80,26 +70,6 @@ const Register = ({className}) => {
         <NavLink className="q" exact to={Routes.HELP}><img className="question" src={help} alt="icon question"/></NavLink>
         </div>
         <form onSubmit={formik.handleSubmit}>
-          {/* <StyledAvatar 
-          onChange={(e) => {
-            let value = formik.setFieldValue("regAvatar", e.currentTarget.files[0]);
-            e.preventDefault();
-
-            let reader = new FileReader();
-            let file = e.target.files[0];
-            reader.readAsDataURL(file)
-            reader.onloadend = () => {
-            setPic(
-              reader.result
-            );
-          }
-            return value
-          }}
-          onBlur={formik.handleBlur}
-          src={pic ? pic : av}
-          />
-          {formik.touched.regAvatar && formik.errors.regAvatar ? <p className="error error_avatar">{formik.errors.regAvatar}</p> : null} */}
-
           <StyledInput 
             id="regFname"
             name="regFname"

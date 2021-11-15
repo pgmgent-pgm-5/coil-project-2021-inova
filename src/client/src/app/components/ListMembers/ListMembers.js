@@ -25,8 +25,6 @@ const { loading, error, data } = useQuery(GET_MY_EVENTS_MEMBERS);
 if (loading) return 'Loading...';
 if (error) return `Error! ${error.message}`;
   const result = data.getEvent.userHasEvent;
-  console.log(result);
-
   return (
     <div className={className}>
       {result.map((element , index) => (
