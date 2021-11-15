@@ -43,27 +43,3 @@ query {
   }
 
 `;
-
-// export const GET_MY_EVENTS_MEMBERS = gql `
-
-// query getEvent($id:String!) {
-//  getEvent(
-//    id:$id
-//    ){
-
-//   userHasEvent {
-//   id
-//   user{
-//   id
-//   email
-//   profile {
-//   id
-//   firstName
-//   lastName
-//   image
-//   }
-//   }
-//   }
-//   }
-// `;
-
