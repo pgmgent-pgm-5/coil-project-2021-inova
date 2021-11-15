@@ -65,7 +65,8 @@ type EventInfo {
 }
 
 type OweInfo {
-  userName: String!
+  firstName: String!
+  lastName: String!
   sum: Float!
 }
 
