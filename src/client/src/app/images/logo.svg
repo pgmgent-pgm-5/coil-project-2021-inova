@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="74" height="68" viewBox="0 0 74 68">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_170" data-name="Rectangle 170" width="74" height="68" transform="translate(140 16)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_1" data-name="Mask Group 1" transform="translate(-140 -16)" clip-path="url(#clip-path)">
+    <g id="Group_1" data-name="Group 1" transform="translate(69.083 -125.549)">
+      <text id="IOU" transform="translate(72.972 193.222)" fill="#725ac1" font-size="41" font-family="HWTMardell, HWT Mardell" letter-spacing="0.06em"><tspan x="0" y="0">IOU</tspan></text>
+      <rect id="Rectangle_3" data-name="Rectangle 3" width="74" height="43.681" transform="translate(70.917 155.194)" fill="none"/>
+    </g>
+  </g>
+</svg>
