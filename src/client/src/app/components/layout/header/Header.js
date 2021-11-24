@@ -4,8 +4,6 @@ import * as Routes from '../../../routes';
 import { useQuery } from '@apollo/client';
 import {GET_PROFILE_QUERY} from '../../../GraphQl/Queries'
 
-
-
 import logo1 from "../../../images/logo.png"
 
 import StyledModal from "./StyledModal.style"

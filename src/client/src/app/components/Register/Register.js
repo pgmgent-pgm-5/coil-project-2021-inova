@@ -42,7 +42,6 @@ const Register = ({className}) => {
       .min(6, "Password must contain between 6 and 12 characters ")
       .max(12, "Password must contain between 6 and 12 characters")
       .required("Password is required"),
-     
       repeatRegPass: YUP.string().oneOf([YUP.ref('regPass'), null], 'Passwords must match'),
      }),
     onSubmit: (values) => {

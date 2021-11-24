@@ -11,6 +11,11 @@ import {useMutation} from "@apollo/client"
 const AddExpense = ({className}) => {
   
   const { id } = useParams();
+<<<<<<< HEAD
+  const userId = localStorage.getItem('userId');
+  const [createExpence, {error}] = useMutation(CREATE_EXPENSE_MUTATION);
+=======
+>>>>>>> release/0.0.2
   const history = useHistory();
   const [createExpence] = useMutation(CREATE_EXPENSE_MUTATION, {
     onCompleted: (data) => {

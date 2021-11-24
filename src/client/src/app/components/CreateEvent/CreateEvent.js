@@ -48,7 +48,6 @@ const CreateEvent = ({className}) => {
 
   const handleSelection = (items) => {
     formik.setFieldValue('evSelect', items);
-    // formik.handleChange('evSelect');
   }
 
   return (
