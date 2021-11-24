@@ -4,9 +4,6 @@ import { UpdateProfileInput } from 'src/profile/dto/update-profile.input';
 
 @InputType()
 export class UpdateUserInput {
-  @Field()
-  id: string;
-
   @IsEmail()
   @Field({ nullable: true })
   email: string;

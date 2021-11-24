@@ -4,6 +4,7 @@ import { Expence } from './entities/expence.entity';
 import { CreateExpenceInput } from './dto/create-expence.input';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
+import { GetUser } from 'src/auth/getUserFromToken';
 
 @Resolver(() => Expence)
 export class ExpenceResolver {
@@ -13,8 +14,9 @@ export class ExpenceResolver {
   @Mutation(() => Expence)
   createExpence(
     @Args('createExpenceInput') createExpenceInput: CreateExpenceInput,
+    @GetUser() user,
   ) {
-    return this.expenceService.create(createExpenceInput);
+    return this.expenceService.create(createExpenceInput, user.id);
   }
 
   @UseGuards(JwtAuthGuard)

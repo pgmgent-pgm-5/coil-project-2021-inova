@@ -6,6 +6,7 @@ import { UpdateUserInput } from './dto/update-user.input';
 import { CreateProfileInput } from 'src/profile/dto/create-profile.input';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
+import { GetUser } from 'src/auth/getUserFromToken';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -24,15 +25,20 @@ export class UserResolver {
     return this.usersService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Query(() => User, { name: 'getUserById' })
-  findOne(@Args('id') id: string) {
-    return this.usersService.findOne(id);
+  findOne(@GetUser() user) {
+    const userId = user.id;
+    return this.usersService.findOne(userId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Mutation(() => User)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.usersService.update(updateUserInput.id, updateUserInput);
+  updateUser(
+    @Args('updateUserInput') updateUserInput: UpdateUserInput,
+    @GetUser() user,
+  ) {
+    return this.usersService.update(user.id, updateUserInput);
   }
 
   @UseGuards(JwtAuthGuard)
