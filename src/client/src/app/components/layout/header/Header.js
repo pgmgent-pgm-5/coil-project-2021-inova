@@ -6,7 +6,6 @@ import {GET_PROFILE_QUERY} from '../../../GraphQl/Queries'
 
 
 
-import logo from "../../../images/logo.svg"
 import logo1 from "../../../images/logo.png"
 
 import StyledModal from "./StyledModal.style"
