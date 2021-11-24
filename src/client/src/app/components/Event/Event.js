@@ -7,7 +7,6 @@ import {GET_MY_EVENTS} from '../../GraphQl/Queries';
 
 const Event = ({className}) => {
   const { loading, error, data } = useQuery(GET_MY_EVENTS);
-
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
   const result = data.getUserById.userHasEvent;

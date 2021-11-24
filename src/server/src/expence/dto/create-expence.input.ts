@@ -1,6 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
 import { IsInt, IsString } from 'class-validator';
-import { CreateUserHasEventIdInput } from 'src/user-has-event/dto/create-user-has-event-id.input';
 
 @InputType()
 export class CreateExpenceInput {
@@ -15,6 +14,6 @@ export class CreateExpenceInput {
   @Field({ nullable: true })
   createdAt: Date;
 
-  @Field(() => CreateUserHasEventIdInput)
-  createUserHasEventIdInput: CreateUserHasEventIdInput;
+  @Field(() => String)
+  eventId: string;
 }

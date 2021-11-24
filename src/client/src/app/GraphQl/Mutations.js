@@ -51,18 +51,17 @@ mutation login (
 export const UPDATE_PROFILE_MUTATION = gql`
 
 mutation updateUser(
-  $id: String!
   $firstName:String! 
   $lastName:String! 
   $email:String! 
+  $password:String!
   ) {
   updateUser
   (
     updateUserInput: {
-    id: $id
     email: $email
+    password: $password
     profile: {
-      id: $id
       firstName: $firstName
       lastName: $lastName
     }
@@ -80,13 +79,13 @@ mutation updateUser(
 export const RESET_PASS_MUTATION = gql`
 
 mutation updateUser(
-  $id: String!
   $password: String! 
+  $email: String!
   ) {
   updateUser
   (
     updateUserInput: {
-    id: $id
+      email: $email
     password: $password
 
   }){
@@ -117,16 +116,14 @@ mutation createExpence(
   $name: String!
   $sum:Int!
   $eventId:String!
-  $userId:String!
 ) {
-  createExpence(createExpenceInput: {
+  createExpence(
+    createExpenceInput: {
     name: $name
     sum: $sum
-    createUserHasEventIdInput: {
-      eventId: $eventId
-      userId: $userId
-    }
+    eventId: $eventId
   }){
+    id
     name
     sum
   }

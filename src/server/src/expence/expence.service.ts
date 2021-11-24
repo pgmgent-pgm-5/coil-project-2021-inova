@@ -18,10 +18,11 @@ export class ExpenceService {
     private eventService: EventService,
   ) {}
 
-  async create(createExpenceInput: CreateExpenceInput) {
+  async create(createExpenceInput: CreateExpenceInput, userId: string) {
     const expence = this.expenceRepository.create(createExpenceInput);
     expence.userEvent = await this.userHasEventService.createById(
-      createExpenceInput.createUserHasEventIdInput,
+      userId,
+      createExpenceInput.eventId,
     );
 
     const user: UserHasEvent =

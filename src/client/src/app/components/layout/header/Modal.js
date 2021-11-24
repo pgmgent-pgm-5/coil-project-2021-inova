@@ -14,8 +14,6 @@ const Modal = ({className}) => {
         <li 
           onClick={() => {
             localStorage.removeItem('token');
-            localStorage.removeItem('userId');
-            window.location.reload();
             history.push("/login");
             } 
           }>

@@ -72,7 +72,7 @@ type OweInfo {
 
 type Query {
   getAllUsers: [User!]!
-  getUserById(id: String!): User!
+  getUserById: User!
   getAllProfiles: [Profile!]!
   getProfileByIdprofile(id: String!): Profile!
   userHasEvent: [UserHasEvent!]!
@@ -81,7 +81,7 @@ type Query {
   userHasEventFindEventsByuserIdEventId(eventId: String!, userId: String!): UserHasEvent!
   getAllEvents: [Event!]!
   getEvent(id: String!): Event!
-  getEventInfo(userId: String!, id: String!): EventInfo!
+  getEventInfo(id: String!): EventInfo!
   getAllExpences(eventId: String!): [Expence!]!
   expence(id: String!): Expence!
 }
@@ -112,14 +112,12 @@ input CreateUserInput {
 }
 
 input UpdateUserInput {
-  id: String!
   email: String
   password: String
   profile: UpdateProfileInput
 }
 
 input UpdateProfileInput {
-  id: String!
   firstName: String
   lastName: String
   image: String
@@ -145,10 +143,5 @@ input CreateExpenceInput {
   sum: Int!
   name: String!
   createdAt: DateTime
-  createUserHasEventIdInput: CreateUserHasEventIdInput!
-}
-
-input CreateUserHasEventIdInput {
-  userId: String!
   eventId: String!
 }

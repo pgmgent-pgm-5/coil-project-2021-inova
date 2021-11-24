@@ -124,7 +124,7 @@ const Register = ({className}) => {
             backgroundcolor="#725AC1" 
             width="100%" 
             type="submit" 
-            text="Creat Account" 
+            text="Create Account" 
             name="createAccount"
           />
           <p className="switch">Already have account? <NavLink exact to ={Routes.AUTH_LOGIN}>Login</NavLink></p>

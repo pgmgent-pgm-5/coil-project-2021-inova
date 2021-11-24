@@ -6,12 +6,11 @@ import {useQuery, gql} from "@apollo/client";
 
 const Event = () => {
   const [selected, setSelected] = useState('I owe')
-  const userId = localStorage.getItem('userId');
   const { id } = useParams();
   const GET_DUES = gql `
   
 query {
-  getEventInfo(id:"${id}", userId: "${userId}"){
+  getEventInfo(id:"${id}"){
     id
     name
     oweMe{
@@ -30,7 +29,13 @@ query {
 }
 `;
   
+<<<<<<< HEAD
 const { data} = useQuery(GET_DUES);  
+=======
+const { data} = useQuery(GET_DUES, {
+  fetchPolicy: "network-only"
+});  
+>>>>>>> release/0.0.2
   const GET_ALL_EXPENSES = gql`
   query {
     getAllExpences(eventId: "${id}"){
@@ -48,7 +53,9 @@ const { data} = useQuery(GET_DUES);
     }
   }
   `;
-  const { loading:loadExp, error:errExp, data:all } = useQuery(GET_ALL_EXPENSES);  
+  const { loading:loadExp, error:errExp, data:all } = useQuery(GET_ALL_EXPENSES, {
+    fetchPolicy: "network-only"
+  });  
   if (loadExp) {return 'Loading...'}
   if (errExp) {return `Error! ${errExp.message}`}
   const allExp = all.getAllExpences;
@@ -57,7 +64,7 @@ const { data} = useQuery(GET_DUES);
   return (
     <AppContainer>
       <HeaderStyled/>
-      < StyledInfo eventId={id}/>
+      <StyledInfo eventId={id}/>
       
       <StyledSwitchers setSelected={setSelected}  />
       <StyledList>

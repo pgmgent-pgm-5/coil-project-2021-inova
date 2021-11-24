@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useFormik} from 'formik';
 import * as YUP from 'yup';
-import { NavLink} from "react-router-dom";
+import { NavLink, useHistory} from "react-router-dom";
 import * as Routes from '../../routes';
 import StyledInput from '../Input/StyledInput.style';
 import StyledButton from '../Button/StyledButton.style';
@@ -10,17 +10,18 @@ import {LOGIN_MUTATION} from "../../GraphQl/Mutations"
 import {useMutation} from "@apollo/client"
 
 const Login = ({className}) => {
-  const [login, {error}] = useMutation(LOGIN_MUTATION,{
+  const history = useHistory();
+  const [responseError, setResponseError] = useState('');
+  const [login] = useMutation(LOGIN_MUTATION,{
     onCompleted: (data) => {
       const result = data; 
-      const userId = result.login.id;
       const token = result.login.access_token;
-      localStorage.setItem('userId', userId);
       localStorage.setItem('token', token);
-      
+      history.push("/my_events");
     },
     onError: (error) => {
-      console.log(error); // the error if that is the case
+      console.log(error);
+      setResponseError(error.message) // the error if that is the case
     }
   });
   const formik = useFormik({
@@ -33,17 +34,12 @@ const Login = ({className}) => {
       loginPass: YUP.string().min(6, "Password must contain between 6 and 12 characters ").max(12, "Password must contain between 6 and 12 characters").required("Password is required")
     }),
     onSubmit: (values) => {
-      
       login({
         variables: {
           email: values.loginEmail,
           password: values.loginPass
         }
       });
-      if(error){
-        console.log(error); // the error if that is the case
-      }
-      window.location.href = "/my_events";
     },
   });
   return (
@@ -54,7 +50,7 @@ const Login = ({className}) => {
         <NavLink className="q" exact to={Routes.HELP}><img className="question" src={help} alt="icon question"/></NavLink>
         </div>
         
-        
+        {responseError && <p className="error">{responseError}</p>}
         <form onSubmit={formik.handleSubmit}>
           <StyledInput 
             id="email"
@@ -75,6 +71,7 @@ const Login = ({className}) => {
             onBlur = {formik.handleBlur} 
             value={formik.values.loginPass}  
           />
+          
           {formik.touched.loginPass && formik.errors.loginPass ? <p className="error">{formik.errors.loginPass}</p> : null}
           < StyledButton 
             backgroundcolor="#725AC1" 

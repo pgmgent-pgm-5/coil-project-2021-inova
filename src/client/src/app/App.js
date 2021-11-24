@@ -36,7 +36,7 @@ const App = () => {
     <ApolloProvider client={client}>
       <div className="app">
         <GlobalStyles />
-        <Router>
+        <Router forceRefresh={true}>
           <Switch>
             <Route path={Routes.AUTH_LOGIN} component={ Login } />
             <Route path={Routes.AUTH_REGISTER} component={ Register } />

@@ -6,15 +6,25 @@ import StyledButton from '../Button/StyledButton.style';
 import {useHistory} from "react-router-dom";
 
 import {RESET_PASS_MUTATION} from "../../GraphQl/Mutations"
-import {useMutation} from "@apollo/client"
+import {useMutation, useQuery} from "@apollo/client"
+import {GET_PROFILE_QUERY} from '../../GraphQl/Queries'
 
 
 const Password = ({className}) => {
-  const userId  = localStorage.getItem('userId');
   const history = useHistory();
-  const [updateUser, {error}] = useMutation(RESET_PASS_MUTATION);
+  const {data:pro} = useQuery(GET_PROFILE_QUERY);
+  const [updateUser] = useMutation(RESET_PASS_MUTATION,{
+    onCompleted: () => {
+      localStorage.removeItem('token');
+      history.push("/login");
+    },
+    onError: (error) => {
+      console.log(error);
+    }
+  });
   const formik = useFormik({
     initialValues:{
+      editEmail: `${pro ? pro.getUserById.email : ""}`,
       editPassword: "",
       repeatPassword:"",
     },
@@ -26,17 +36,10 @@ const Password = ({className}) => {
     onSubmit: (values) => {
       updateUser({
         variables: {
-          id: userId,
+          email: values.editEmail,
           password: values.editPassword
         }
       })
-      if (error) {
-        console.log(error);
-      }else{
-
-        history.push("/login");
-        window.location.reload();
-      }
     },
   });
   return (
@@ -44,6 +47,15 @@ const Password = ({className}) => {
       <div>
         <h2>Reset Password</h2>
         <form onSubmit={formik.handleSubmit}>
+        <StyledInput
+            id="editEmail" 
+            name="editEmail"  
+            text="" 
+            type="hidden"
+            onChange={formik.handleChange} 
+            onBlur = {formik.handleBlur} 
+            value={formik.values.editEmail}  
+          />
           <StyledInput 
             id="editPassword"
             name="editPassword"
