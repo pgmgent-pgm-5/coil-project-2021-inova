@@ -28,14 +28,9 @@ query {
   }
 }
 `;
-  
-<<<<<<< HEAD
-const { data} = useQuery(GET_DUES);  
-=======
 const { data} = useQuery(GET_DUES, {
   fetchPolicy: "network-only"
 });  
->>>>>>> release/0.0.2
   const GET_ALL_EXPENSES = gql`
   query {
     getAllExpences(eventId: "${id}"){
