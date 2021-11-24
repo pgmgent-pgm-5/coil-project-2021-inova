@@ -7,6 +7,7 @@ import {GET_PROFILE_QUERY} from '../../../GraphQl/Queries'
 
 
 import logo from "../../../images/logo.svg"
+import logo1 from "../../../images/logo.png"
 
 import StyledModal from "./StyledModal.style"
 const Header = ({className}) => { 
@@ -35,7 +36,7 @@ const Header = ({className}) => {
   return (
     <>
     <section className={className}>
-     <NavLink exact to = {Routes.LANDING}><img src={logo} width="74" height="68" alt="logo" /> </NavLink>
+     <NavLink exact to = {Routes.LANDING}><img src={logo1} width="74" height="68" alt="logo" /> </NavLink>
      {/* <div onClick={handleClick}><img src={Faker.image.avatar()} alt='avatar'/><span>Hello Joe <strong>{arrow}</strong></span></div> */}
 
      <div title={`${firstName} ${lastName}`} onClick={handleClick}><img src={`https://avatars.dicebear.com/api/bottts/:${firstName}.svg?scale=85&background=%23ffffff`} alt="avatar" className="avatar" /><span>Hello {firstName} <strong>{arrow}</strong></span></div>
