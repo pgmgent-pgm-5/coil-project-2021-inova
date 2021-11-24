@@ -11,9 +11,16 @@ import {useMutation} from "@apollo/client"
 const AddExpense = ({className}) => {
   
   const { id } = useParams();
-  const userId = localStorage.getItem('userId');
-  const [createExpence, {error}] = useMutation(CREATE_EXPENSE_MUTATION);
   const history = useHistory();
+  const [createExpence] = useMutation(CREATE_EXPENSE_MUTATION, {
+    onCompleted: (data) => {
+      history.push(`/my_events/event/${id}`);
+    },
+    onError: (error) => {
+      console.log(error);
+      history.goBack();
+    }
+  });
   const formik = useFormik({
     initialValues:{
       expTitle: "",
@@ -27,16 +34,10 @@ const AddExpense = ({className}) => {
       createExpence({
         variables: {
         eventId:id,
-        userId:userId,
         name:values.expTitle,
         sum: values.expAmount
         }
       })
-      if (error) {
-        console.log(error);
-      }else{
-        history.goBack()
-      }
     },
   });
   return (

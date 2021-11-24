@@ -1,11 +1,12 @@
-import {gql} from "@apollo/client"
-const userId  = localStorage.getItem('userId');
+import {gql} from "@apollo/client";
+
 export const GET_PROFILE_QUERY = gql `
 query {
-  getUserById(id: "${userId}"){
+  getUserById{
     id
     email
     profile {
+      id
       firstName
       lastName
     }
@@ -19,6 +20,7 @@ query {
     id
     email
     profile {
+      id
       firstName
       lastName
     }
@@ -31,7 +33,8 @@ query {
 
 export const GET_MY_EVENTS = gql`
 query {
- getUserById(id:"${userId}"){
+ getUserById{
+   id
   userHasEvent {
   id
   event{

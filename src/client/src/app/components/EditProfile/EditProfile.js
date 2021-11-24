@@ -14,7 +14,6 @@ import {GET_PROFILE_QUERY} from '../../GraphQl/Queries'
 
 
 const EditProfile = ({className}) => {
-  const userId  = localStorage.getItem('userId');
   const history = useHistory();
 
   const [updateUser, {error}] = useMutation(UPDATE_PROFILE_MUTATION);
@@ -27,28 +26,28 @@ const EditProfile = ({className}) => {
       editFname: `${data ? data.getUserById.profile.firstName : ""}`,
       editLname: `${data ? data.getUserById.profile.lastName : ""}`,
       editEmail: `${data ? data.getUserById.email : ""}`,
+      editPass : ""
     },
     enableReinitialize: true,
     validationSchema: YUP.object({
       editFname:YUP.string().min(2, "First Name must contain minimum 2 characters ").max(30, "First Name must contain less than 30 characters "),
       editLname:YUP.string().min(2, "Last Name must contain minimum 2 characters ").max(30, "Last Name must contain less than 30 characters "),
       editEmail: YUP.string().email("Inavalid email address "),
+      editPass: YUP.string().min(6, "Password must contain between 6 and 12 characters ").max(12, "Password must contain between 6 and 12 characters").required("Password is required"),
     }),
     onSubmit: (values) => {
-      updateUser({
+      data && updateUser({
         variables: {
-          id: userId,
           firstName: values.editFname,
           lastName: values.editLname,
           email: values.editEmail,
+          password: values.editPass
         }
       })
       if (error) {
         console.log(error);
       }else{
-
         history.push("/login");
-        window.location.reload();
       }
     },
   });
@@ -87,6 +86,16 @@ const EditProfile = ({className}) => {
             value={formik.values.editEmail}  
           />
           {formik.touched.editEmail && formik.errors.editEmail ? <p className="error">{formik.errors.editEmail}</p> : null}
+          <StyledInput 
+            id="editPass"
+            name="editPass"
+            text="Password" 
+            type="password"  
+            onChange={formik.handleChange} 
+            onBlur = {formik.handleBlur}
+            value={formik.values.editPass}  
+          />
+          {formik.touched.editPass && formik.errors.editPass ? <p className="error">{formik.errors.editPass}</p> : null}
           < StyledButton 
             backgroundcolor="#725AC1" 
             width="100%" 

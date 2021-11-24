@@ -10,12 +10,15 @@ const ListMembers = ({className, ev}) => {
     getEvent(id:"${id}"){
       userHasEvent {
         user{
+          id
           profile {
+            id
             firstName
             lastName
           }
         }
       }
+      id
     }
   }
 `;

@@ -10,7 +10,14 @@ import {CREATE_EVENT_MUTATION} from '../../GraphQl/Mutations'
 
 
 const CreateEvent = ({className}) => {
-  const [createEvent, {error}] = useMutation(CREATE_EVENT_MUTATION);
+  const [createEvent] = useMutation(CREATE_EVENT_MUTATION,{
+    onCompleted: () => {
+      history.push("/my-events");
+    },
+    onError: (error) => {
+      console.log(error);
+    }
+  });
   const history = useHistory();
   const formik = useFormik({
     initialValues:{
@@ -36,14 +43,6 @@ const CreateEvent = ({className}) => {
           userIds: userIds,
         }
       })
-      if (error) {
-        console.log(error);
-      }else{
-
-        history.push("/my-events");
-        window.location.reload();
-      }
-
     },
   });
 
