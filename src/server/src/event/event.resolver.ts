@@ -9,7 +9,7 @@ import { UserHasEvent } from 'src/user-has-event/entities/user-has-event.entity'
 import { EventInfo } from './entities/eventInfo.entity';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
-
+import { GetUser } from 'src/auth/getUserFromToken';
 @Resolver(() => Event)
 export class EventResolver {
   constructor(
@@ -32,19 +32,21 @@ export class EventResolver {
 
   @UseGuards(JwtAuthGuard)
   @Query(() => Event, { name: 'getEvent' })
-  async findEvent(@Args('id') id: string) {
+  async findEvent(@Args('id') id: string, @GetUser() user) {
+    const uId = user.id;
     return this.eventService.findOne(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Query(() => EventInfo, { name: 'getEventInfo' })
-  async findOne(@Args('id') id: string, @Args('userId') userId: string) {
-    const user: UserHasEvent =
+  async findOne(@Args('id') id: string, @GetUser() user) {
+    const userId = user.id;
+    const userHasEvent: UserHasEvent =
       await this.userHasEventService.findByEventIdUserId(userId, id);
     const event = await this.eventService.findOne(id);
     const eventInfo = await this.expenceService.getLatestInfo(
       event,
-      user.displayOrder,
+      userHasEvent.displayOrder,
     );
     return eventInfo;
   }

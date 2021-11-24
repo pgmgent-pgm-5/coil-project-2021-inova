@@ -3,9 +3,6 @@ import { IsString } from 'class-validator';
 
 @InputType()
 export class UpdateProfileInput {
-  @Field()
-  id: string;
-
   @IsString()
   @Field({ nullable: true })
   firstName: string;

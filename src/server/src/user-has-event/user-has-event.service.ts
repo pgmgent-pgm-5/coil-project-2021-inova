@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateUserHasEventIdInput } from './dto/create-user-has-event-id.input';
 import { CreateUserHasEventInput } from './dto/create-user-has-event.input';
 import { UserHasEvent } from './entities/user-has-event.entity';
 
@@ -22,11 +21,8 @@ export class UserHasEventService {
     return this.userHasEventRepository.create(users);
   }
 
-  createById(createUserHasEventIdInput: CreateUserHasEventIdInput) {
-    const userEvent = this.findByEventIdUserId(
-      createUserHasEventIdInput.userId,
-      createUserHasEventIdInput.eventId,
-    );
+  createById(userId: string, eventId: string) {
+    const userEvent = this.findByEventIdUserId(userId, eventId);
     return userEvent;
   }
 
