@@ -17,12 +17,23 @@ import {GlobalStyles} from './GeneralStyles.style';
 const httpLink = new HttpLink({ uri: 'https://iou-api.onrender.com/graphql'});
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
-  operation.setContext(({ headers = {} }) => ({
-    headers: {
-      ...headers,
-      Authorization: `Bearer ${localStorage.getItem('token')}` || null,
+  operation.setContext(({ headers = {} }) => {
+    const token = localStorage.getItem('token');
+    if(!token){
+      return {
+        headers: {
+          headers
+        }
+      };
     }
-  }));
+
+    return {
+      headers: {
+        ...headers,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
+    }
+  });
 
   return forward(operation);
 })
