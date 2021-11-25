@@ -25,7 +25,7 @@ import { ExpenceModule } from './expence/expence.module';
       context: ({ req }) => ({ headers: req.headers }),
       playground: true,
       introspection: true,
-      //cors: true,
+      cors: true,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
