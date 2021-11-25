@@ -14,7 +14,7 @@ import { AddExpense, CreateEvent,EditProfile, Event,Help, Home, Login, Register,
 import { PrivateRoute } from "./components";
 import {GlobalStyles} from './GeneralStyles.style';
 
-const httpLink = new HttpLink({ uri: 'https://iou-api.onrender.com/graphql'});
+const httpLink = new HttpLink({ uri: 'http://localhost:5000/graphql'});
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
   operation.setContext(({ headers = {} }) => ({
