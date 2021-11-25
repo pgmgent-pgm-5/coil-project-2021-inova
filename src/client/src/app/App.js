@@ -22,7 +22,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
     if(!token){
       return {
         headers: {
-          headers
+          ...headers
         }
       };
     }
