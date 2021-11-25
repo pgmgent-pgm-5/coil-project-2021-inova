@@ -28,7 +28,7 @@ query {
   }
 }
 `;
-  
+
 const { data} = useQuery(GET_DUES, {
   fetchPolicy: "network-only"
 });  

@@ -23,6 +23,8 @@ import { ExpenceModule } from './expence/expence.module';
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/graphql-schema.gql'),
       context: ({ req }) => ({ headers: req.headers }),
+      playground: true,
+      introspection: true,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
