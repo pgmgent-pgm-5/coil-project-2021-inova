@@ -30,6 +30,10 @@ body {
   font-family: 'Lato';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+}
+html{
+  scroll-behavior: smooth;
 }
 a{
   text-decoration: none;
@@ -97,5 +101,123 @@ ul{
     }
   }
 }
+.nav_wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 2rem;
+  & a{
+    margin-bottom: .5rem;
+    color:#725AC1;
+    font-weight: bold;
+    transition: all .3s ease-in-out  ;
+    &:hover{
+    opacity: .8;
+  }
+  }
+}
 
+section{
+  & h1{
+    color:#725AC1;
+    font-size: 1.8rem;
+  }
+  & h2{
+    color:#725AC1;
+    font-size: 1.5rem;
+    opacity: .8;
+  }
+  & h3{
+    color:#725AC1;
+    font-size: 1.25rem;
+    opacity: .7;
+  }
+
+  & h4{
+    color:#717171;
+    font-size: 1rem;
+
+  }
+} 
+
+section{
+  border: 4px solid #725AC1;
+  padding: 2rem 1rem;
+  border-radius: .5rem;
+  margin: 2rem 0;
+  & .crt{
+    border-radius: .5rem;
+  padding: 2rem 1rem;
+  box-shadow: 4px 8px 16px rgba(0, 0, 0, .4);
+  margin-bottom: 2rem;
+  }
+
+}
+
+section li{
+margin: 1rem 0;
+}
+section ul, ol{
+  padding-left: 1.25rem;
+}
+
+.note{
+  border: 2px solid #725AC1;
+  padding:  .5rem;
+  border-radius: .5rem;
+  text-align: center;
+  background-color: #f2f2f2;
+  margin: .5rem 0;
+  width: 100%;
+}
+.list_help{
+  padding: 0 1rem;
+  & div {
+    margin: .5rem 0;
+  }
+}
+
+.help_exp, .help_info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  & img{
+    width: 100%;
+    border: 2px solid #725AC1;
+  }
+  & ol, ul, p{
+    width:100%;
+  }
+  @media (min-width:767px){
+    & .sm{
+    width: 25%;
+  }
+  & .xl{
+    width: 45%;
+  }
+  & ol, ul, p{
+    width:50%;
+  }
+  }
+}
+.list_ex{
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.to-top{
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color:#725AC1;
+  border-radius: .5rem;
+  height: 4rem;
+  width: 4rem;
+  color:#fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: .7;
+}
 `;

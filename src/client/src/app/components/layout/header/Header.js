@@ -9,7 +9,7 @@ import logo1 from "../../../images/logo.png"
 import StyledModal from "./StyledModal.style"
 const Header = ({className}) => { 
 
-  
+
   const [showModal, setShowModal] = useState(false);
   const [arrow, setArrow] = useState("▼");
   const { loading, error, data } = useQuery(GET_PROFILE_QUERY);
@@ -35,7 +35,7 @@ const Header = ({className}) => {
     <section className={className}>
      <NavLink exact to = {Routes.LANDING}><img src={logo1} width="74" height="68" alt="logo" /> </NavLink>
      {/* <div onClick={handleClick}><img src={Faker.image.avatar()} alt='avatar'/><span>Hello Joe <strong>{arrow}</strong></span></div> */}
-
+      
      <div title={`${firstName} ${lastName}`} onClick={handleClick}><img src={`https://avatars.dicebear.com/api/bottts/:${firstName}.svg?scale=85&background=%23ffffff`} alt="avatar" className="avatar" /><span>Hello {firstName} <strong>{arrow}</strong></span></div>
      
     </section>
