@@ -22,7 +22,7 @@ const Help = () => {
             <a href="#4">Frequently Asked Questions</a>
           </div>
           
-          <section id="1">
+          <article id="1">
             <h1>Getting Started with IOU</h1>
 
 
@@ -88,8 +88,8 @@ const Help = () => {
               </div>
             </div>
 
-            </section>
-            <section id="2">
+            </article>
+            <article id="2">
               <h1>Creating an Event</h1>
 
               <div className="crt" >
@@ -187,9 +187,9 @@ const Help = () => {
               </div>
             </div>
 
-            </section>
+            </article>
 
-            <section id="3">
+            <article id="3">
               <h1>Editing Profile Settings</h1>
               <div>
               <div className="crt">
@@ -263,9 +263,9 @@ const Help = () => {
                 </div>
 
               </div>
-            </section>
+            </article>
 
-            <section id="4">
+            <article id="4">
               <h1>Frequently Asked Questions</h1>
 
               <div className="crt">
@@ -307,7 +307,7 @@ const Help = () => {
                 <h3>How are expenses split? </h3>
                 <p>When a member adds an expense to an event, that expense is divided evenly amongst all of the members. The values in the I owe and Owed to me tabs update accordingly. </p>
               </div>
-            </section>
+            </article>
     </AppContainer>
   )
 }

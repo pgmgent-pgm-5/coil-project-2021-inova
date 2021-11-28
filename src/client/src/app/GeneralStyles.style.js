@@ -117,7 +117,7 @@ ul{
   }
 }
 
-section{
+article{
   & h1{
     color:#725AC1;
     font-size: 1.8rem;
@@ -140,7 +140,7 @@ section{
   }
 } 
 
-section{
+article{
   border: 4px solid #725AC1;
   padding: 2rem 1rem;
   border-radius: .5rem;
@@ -154,10 +154,10 @@ section{
 
 }
 
-section li{
+article li{
 margin: 1rem 0;
 }
-section ul, ol{
+article ul, ol{
   padding-left: 1.25rem;
 }
 
