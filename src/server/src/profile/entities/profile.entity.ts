@@ -16,7 +16,4 @@ export class Profile {
   @Field()
   lastName: string;
 
-  @Column({ nullable: true })
-  @Field({ nullable: true })
-  image: string;
 }

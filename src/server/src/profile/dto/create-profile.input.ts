@@ -11,6 +11,5 @@ export class CreateProfileInput {
   @Field()
   lastName: string;
 
-  @Field({ nullable: true })
-  image: string;
+
 }

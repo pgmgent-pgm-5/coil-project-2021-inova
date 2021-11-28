@@ -11,6 +11,4 @@ export class UpdateProfileInput {
   @Field({ nullable: true })
   lastName: string;
 
-  @Field({ nullable: true })
-  image: string;
 }
