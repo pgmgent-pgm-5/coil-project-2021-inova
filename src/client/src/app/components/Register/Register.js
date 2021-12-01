@@ -127,6 +127,7 @@ const Register = ({className}) => {
             text="Create Account" 
             name="createAccount"
           />
+          <p className="alert">By creating an account, you agree that your name will be visible to all other users.</p>
           <p className="switch">Already have account? <NavLink exact to ={Routes.AUTH_LOGIN}>Login</NavLink></p>
         </form>
 

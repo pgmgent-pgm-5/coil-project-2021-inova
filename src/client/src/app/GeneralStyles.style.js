@@ -220,4 +220,8 @@ article ul, ol{
   align-items: center;
   opacity: .7;
 }
+.alert{
+  font-size: .8rem;
+  color: #717171;
+}
 `;
